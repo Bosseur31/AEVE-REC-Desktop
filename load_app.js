@@ -39,7 +39,7 @@ addEventListener('load', () => {
                     {
                         ipcRenderer.send('show-stop')
                         ipcRenderer.send('hide-load')
-                    }, 4500);
+                    }, 1000);
 
             }else{
                 console.log('Direction démarrage de vidéo')
@@ -48,7 +48,7 @@ addEventListener('load', () => {
                     {
                         ipcRenderer.send('show-main')
                         ipcRenderer.send('hide-load')
-                    }, 4500);
+                    }, 1000);
             }
 
         });
@@ -65,12 +65,17 @@ addEventListener('load', () => {
     });
 
     request.on('abort', () => {
-
+        document.getElementById('etat').innerHTML = "Une erreur c'est produite !"
         console.log('Request is Aborted')
 
     });
 
     request.on('error', (error) => {
+
+        document.getElementById('etat').style.color = 'red'
+        document.getElementById('loader').style.background= "url('ghost.png') 50% 50% no-repeat rgba(255, 255, 255, 0.8)";
+        document.getElementById('loader').style.backgroundColor= "#000000";
+        document.getElementById('etat').innerHTML = "Internet ou service indisponible !"
 
         console.log(`ERROR: ${JSON.stringify(error)}`)
 
@@ -78,6 +83,7 @@ addEventListener('load', () => {
 
     request.on('close', (error) => {
 
+        document.getElementById('etat').innerHTML = "Veuillez patientez......"
         console.log('Last Transaction has occured')
 
     });

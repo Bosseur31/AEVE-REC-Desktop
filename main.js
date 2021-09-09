@@ -20,7 +20,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   loadWindow.loadFile('load_app.html')
-
+  loadWindow.removeMenu()
 
   const mainWindow = new BrowserWindow({
     width: 320,
@@ -39,6 +39,24 @@ function createWindow () {
 
   mainWindow.loadFile('run_rec.html')
   mainWindow.removeMenu()
+
+  const nextcloudWindow = new BrowserWindow({
+    width: 740,
+    height: 510,
+    frame: true,
+    show: false,
+    resizable: true,
+
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
+
+  nextcloudWindow.loadURL('http://cloud.aymeric-mai.fr')
+  nextcloudWindow.removeMenu()
 
   const stopWindow = new BrowserWindow({
     width: 320,
@@ -73,6 +91,11 @@ function createWindow () {
     loadWindow.reload()
   })
 
+  ipcMain.on('show-nextcloud', function (){
+    nextcloudWindow.show()
+    nextcloudWindow.reload()
+  })
+
   ipcMain.on('hide-load', function (){
     loadWindow.hide()
   })
@@ -84,6 +107,19 @@ function createWindow () {
   ipcMain.on('hide-main', function (){
     mainWindow.hide()
   })
+
+  ipcMain.on('hide-nextcloud', function (){
+    nextcloudWindow.hide()
+  })
+
+  nextcloudWindow.on('close', event=>{
+    event.preventDefault(); //this prevents it from closing. The `closed` event will not fire now
+    nextcloudWindow.hide();
+  })
+
+
+
+
 
 
 

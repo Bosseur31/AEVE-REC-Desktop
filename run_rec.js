@@ -1,6 +1,12 @@
 const electron = require('electron');
 const { ipcRenderer } = require('electron')
 const net = electron.remote.net;
+const shell = require('electron').shell;
+
+function web_vid() {
+    ipcRenderer.send('show-nextcloud')
+}
+
 
 function post_api() {
     var name = document.forms["formulaire"]["name"].value;

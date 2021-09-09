@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <style>
-        .loader{
+        #loader{
             background: url('ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
             background-color: #000000;
             background-size: 15%;
@@ -15,7 +15,7 @@
             width: 100%;
             z-index: 9999;
         }
-        .loader h1{
+        #etat{
             background: none;
             border: none;
             color: #00b6ff;
@@ -34,8 +34,10 @@
 
 <body>
 <div class="container-fluid">
-    <div class="loader">
-        <h1>Veuillez patientez......</h1>
+    <div id="loader">
+        <div id="etat">
+
+        </div>
     </div>
     <script>
         jQuery(window).load(function(){ jQuery(".loader").fadeOut("200"); });
