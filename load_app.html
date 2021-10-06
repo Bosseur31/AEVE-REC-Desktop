@@ -15,6 +15,12 @@
             width: 100%;
             z-index: 9999;
         }
+        #reload_button{
+            position: absolute;
+            bottom: 18%;
+            left: 40%;
+        }
+
         #etat{
             background: none;
             border: none;
@@ -29,15 +35,21 @@
             padding: 0;
             text-align: center;
         }
+
     </style>
 </head>
 
 <body>
 <div class="container-fluid">
     <div id="loader">
+        <div id="reload_button">
+
+        </div>
         <div id="etat">
 
         </div>
+
+
     </div>
     <script>
         jQuery(window).load(function(){ jQuery(".loader").fadeOut("200"); });

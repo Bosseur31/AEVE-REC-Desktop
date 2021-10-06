@@ -76,6 +76,15 @@ addEventListener('load', () => {
         document.getElementById('loader').style.background= "url('ghost.png') 50% 50% no-repeat rgba(255, 255, 255, 0.8)";
         document.getElementById('loader').style.backgroundColor= "#000000";
         document.getElementById('etat').innerHTML = "Internet ou service indisponible !"
+        var reload = document.getElementById("reload_button");
+        var input = document.createElement("input");
+        input.setAttribute("name","reload_button");
+        input.setAttribute("id","reload_button");
+        input.setAttribute("value","Recharger");
+        input.setAttribute("type","button");
+        input.setAttribute("onclick", "document.location.reload(false)")
+        reload.appendChild(input);
+
 
         console.log(`ERROR: ${JSON.stringify(error)}`)
 
