@@ -1,7 +1,10 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const { app } = require('electron')
 const path = require('path')
 const { ipcMain } = require('electron')
+const { dialog } = require('electron')
+const { BrowserWindow } = require('electron')
+const { Notification } = require('electron')
 
 function createWindow () {
   // Create the browser window.
@@ -117,12 +120,40 @@ function createWindow () {
     nextcloudWindow.hide();
   })
 
+  ipcMain.on('notif-upload', function () {
+    new Notification({ title: "Upload Forcé", body: "Les vidéos sont bien en cours d'upload !" }).show()
+  })
 
-
-
-
-
-
+  ipcMain.on('open-upload-dialog', function (event) {
+    console.log('good')
+    dialog.showMessageBox(null, {
+      type: 'info',
+          title: 'Information',
+          message: "Vous allez forcer l'upload des vidéos sur nextcloud !" +
+              '\n' +
+              "L'upload est effectué de maniére automatique toute les nuits," +
+              " ne forcer l'upload seulement en cas de nécessitée !" +
+              '\n' +
+              "Ceci peux prendre qulques minutes, êtes vous certain de vouloir continuer ?",
+          buttons: ['Oui', 'Non'],
+          defaultId: 0, // bound to buttons array
+          cancelId: 1
+    } ) .then(result => {
+          if (result.response === 0) {
+            // bound to buttons array
+            console.log("Default button clicked OUI.");
+            event.sender.send('information-dialog-selection', 'oui')
+          } else if (result.response === 1) {
+            // bound to buttons array
+            console.log("Cancel button clicked NON.");
+            event.sender.send('information-dialog-selection', 'non')
+          }
+          else {
+            console.log()
+          }
+        }
+    );
+  });
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
@@ -132,7 +163,6 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow()
-  
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.

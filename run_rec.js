@@ -7,6 +7,21 @@ function web_vid() {
     ipcRenderer.send('show-nextcloud')
 }
 
+ipcRenderer.on('information-dialog-selection',(event, index) => {
+    if ( index === 'oui' ) {
+        ipcRenderer.send('notif-upload')
+        upload_vid()
+    }
+})
+
+const informationBtn = document.getElementById('button_upload')
+
+informationBtn.addEventListener('click', function (event) {
+    console.log('click')
+    ipcRenderer.send('open-upload-dialog')
+})
+
+
 function upload_vid() {
     const request = net.request({
 
