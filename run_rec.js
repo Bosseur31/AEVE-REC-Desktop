@@ -21,7 +21,6 @@ informationBtn.addEventListener('click', function (event) {
     ipcRenderer.send('open-upload-dialog')
 })
 
-
 function upload_vid() {
     const request = net.request({
 

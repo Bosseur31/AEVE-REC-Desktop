@@ -121,7 +121,7 @@ function createWindow () {
   })
 
   ipcMain.on('notif-upload', function () {
-    new Notification({ title: "Upload Forcé", body: "Les vidéos sont bien en cours d'upload !" }).show()
+    new Notification({ title: "Upload Forcé", body: "Les vidéos sont bien en cours d'upload !", icon: 'icon.png' }).show()
   })
 
   ipcMain.on('open-upload-dialog', function (event) {
